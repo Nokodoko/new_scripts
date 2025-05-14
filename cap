@@ -1,0 +1,21 @@
+#!/bin/bash
+
+NS=notify-send
+DFY='dunstify'
+BASE=~/capacity/repos/dev/ 
+
+function f() {
+    fzf --layout reverse --preview 'bat --style=numbers --color=always --line-range :500 {}'
+}
+
+pushd $BASE
+nvim $(fd -tf | f)
+
+#TESTING
+if [ "$?" -eq 0 ]; then
+    $DFY "Fix This"
+    nvim $FILE
+else
+    $DFY "No Service Selected"
+    exit 1
+fi
