@@ -1,0 +1,21 @@
+#!/bin/bash
+
+NODE=$(kubectl get node -A |flist "Edit Nodes"| awk '{print $1}')
+
+kubectl edit node -n "${NODE}"
+   if [ "$?" -eq 0 ]; then
+       echo "SELCTED $NODE!" | terminal-notifier
+   else
+       echo "No Node Selected" | terminal-notifier
+       exit 1
+   fi
+
+#kubectl logs -n $(kubectl get po -A | awk '{print $1, $2, $4}' | fzf --layout reverse | awk '{print $1, $2}') 
+#   if [ "$?" -eq 0 ]; then
+#       ${DUN} "SELCTED!"
+##       ${tm} "SELCTED!"
+#   else
+#       DUNstify -u critical "No Pod Selected"
+#       #${tm} "No Pod Selected"
+#       exit 1
+#   fi

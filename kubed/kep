@@ -1,0 +1,24 @@
+#!/bin/bash
+
+tm='terminal-notifier'
+
+PODNAME=$(kubectl get po -A | awk '{print $1, $2, $4}' | fzf --layout reverse | awk '{print $1, $2}')
+
+kubectl edit pod -n ${PODNAME} 
+   if [ "$?" -eq 0 ]; then
+       echo "SELCTED!" | $tm
+#       ${tm} "SELCTED!"
+   else
+       echo "No Pod Selected" | $tm
+       exit 1
+   fi
+
+#kubectl logs -n $(kubectl get po -A | awk '{print $1, $2, $4}' | fzf --layout reverse | awk '{print $1, $2}') 
+#   if [ "$?" -eq 0 ]; then
+#       ${DUN} "SELCTED!"
+##       ${tm} "SELCTED!"
+#   else
+#       DUNstify -u critical "No Pod Selected"
+#       #${tm} "No Pod Selected"
+#       exit 1
+#   fi

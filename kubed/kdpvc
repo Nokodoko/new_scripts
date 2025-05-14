@@ -1,0 +1,18 @@
+#!/bin/bash
+
+TN='terminal-notifier'
+
+function flist() {
+    ARG="$@"
+    fzf --layout reverse --border --border-label="$ARG" 
+}
+
+LIST=$(kubectl get pvc -A | awk '{print $1, $2}' | flist "Persistent Volume Claim")
+
+kubectl describe pvc -n ${LIST}
+   if [ "$?" -eq 0 ]; then
+      echo "$LIST SELCTED!" | $TN
+   else
+       echo "No Pod Selected" | $TN
+       exit 1
+   fi

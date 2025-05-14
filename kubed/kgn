@@ -1,0 +1,22 @@
+#!/bin/bash
+
+TN='terminal-notifier'
+
+
+#function flist() {
+#    ARG="$@"
+#    fzf --layout reverse --border --border-label="$ARG" 
+#}
+ 
+LIST=$(cat ~/helmInfo/nodeTypeList.md | flist2 "NODES")
+
+kubectl get node --selector type=${LIST} -o wide
+   if [ "$?" -eq 0 ]; then
+       echo "$LIST Node Selcected" | $TN
+   else
+       echo "No Node Selected" | $TN
+       exit 1
+   fi
+
+
+#kubectl describe node ${list}

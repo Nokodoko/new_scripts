@@ -1,0 +1,18 @@
+#!/bin/bash
+
+NOTIFIER='xargs -I {} dunstify -u low "{}"'
+
+function flist() {
+	ARG="$@"
+	fzf --layout reverse --border --border-label="$ARG"
+}
+
+LIST=$(kubectl get po -A | awk '{print $1, $2}' | flist "Pod Description")
+
+kubectl describe pod -n ${LIST}
+if [ "$?" -eq 0 ]; then
+	echo "$LIST SELCTED!" | $NOTIFIER
+else
+	echo "No Pod Selected" | $NOTIFIER
+	exit 1
+fi

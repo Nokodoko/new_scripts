@@ -1,0 +1,16 @@
+#!/bin/bash
+
+
+#LIST=$(kubectl get node | awk '{print $1}' | fzf --layout reverse)
+
+#kubectl describe node ${LIST}
+kubectl describe node $(nodeFeeder) 
+   if [ "$?" -eq 0 ]; then
+       echo "Node SELCTED!" | terminal-notifier
+   else
+       echo "No Node Selected" | terminal-notifier
+       exit 1
+   fi
+
+
+#kubectl describe node ${list}

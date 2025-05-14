@@ -1,0 +1,20 @@
+#!/bin/bash
+
+function flist() {
+    ARG="$@"
+    fzf --reverse --border --border-label="$ARG"
+}
+ 
+LIST=$(kubectl get ingress -A | awk '{print $1,$2}' | flist "Ingresses")
+TN='terminal-notifier'
+
+kubectl describe ingress -n ${LIST}
+   if [ "$?" -eq 0 ]; then
+       echo "Ingress SELCTED!" | $TN
+   else
+       echo "No ingress Selected" | $TN
+       exit 1
+   fi
+
+
+#kubectl describe ingress ${list}

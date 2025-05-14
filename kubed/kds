@@ -1,0 +1,15 @@
+#!/bin/bash
+
+TN='terminal-notifier'
+LIST=$(kubectl get svc -A | awk '{print $1 ,  $2}' | flist "Describe Services")
+
+kubectl describe svc -n ${LIST}
+   if [ "$?" -eq 0 ]; then
+       echo "$LIST Service Found!" | $TN
+   else
+       echo "No Service Selected" | $TN
+       exit 1
+   fi
+
+# use xargs to populate 'Found' message
+#kubectl describe node ${list}
