@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+#COLORS
+function capColor() {
+  TEXT=$1
+  gum style --foreground "#118DFF" "$TEXT"
+}
+
+function redColor() {
+  TEXT=$1
+  gum style --foreground "#D82C20" "$TEXT"
+}
+
+gum style \
+  --border double \
+  --padding "1" \
+  "Capacity Databases"
+
+#FLAGS
+while getopts ':qmQ' OPTION; do
+  case "$OPTION" in
+  q)
+    echo "Choose $(redColor "permission") level $(capColor "for query")"
+    TYPE=$(gum choose "readOnly" "dba" "master")
+    DATABASE=$(gum filter <~/scripts/sqlQuery/dbList.md)
+    ~/scripts/sqlQuery/$TYPE/$DATABASE
+    exit 0
+    ;;
+  m)
+    ~/scripts/sqlLog/main/main.sh
+    exit 0
+    ;;
+  Q)
+    ~/scripts/sqlQuery/main/main.sh
+    exit 0
+    ;;
+  *)
+    echo "Invalid flag"
+    exit 1
+    ;;
+  esac
+done
+
+#BASE PROGRAM
+echo "Choose $(redColor "permission") level"
+TYPE=$(gum choose "readOnly" "dba" "master")
+DATABASE=$(gum filter <~/scripts/sqlLog/dbList.md)
+
+~/scripts/sqlLog/$TYPE/$DATABASE

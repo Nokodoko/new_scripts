@@ -1,0 +1,30 @@
+#!/bin/bash
+
+FILE='/home/n0ko/query.sql'
+DB='capacitydb.staging.aisoftware.com'
+UN=''
+PW=''
+
+#COLORS
+function capColor() {
+    TEXT=$1
+    gum style --foreground "#118DFF" "$TEXT"
+}
+
+function redColor() {
+    TEXT=$1
+    gum style --foreground "#D82C20" "$TEXT"
+}
+SCHEMAS=$(mysql -h $DB -u $UN -p$PW -e "show databases" | gum filter)
+
+#ENTER QUERY
+echo $(capColor "Enter query")
+read 
+echo $REPLY >> $FILE
+
+function database() {
+    mysql -h $DB $SCHEMAS -u $UN -p$PW -D ${SCHEMAS} -e "source $FILE"
+}
+
+database 
+rm $FILE

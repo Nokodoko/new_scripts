@@ -1,0 +1,12 @@
+db-aisoftware 
+db-workflows-aisoftware 
+db-dmz-aisoftware 
+db.aisoftware 
+db-staging-aisoftware 
+db-eternal-staging-capacity 
+db-dmz-staging-aisoftware 
+dw-aisoftware
+capacitydb-staging-aisoftware 
+dw.aisoftware
+capacitydb.staging.aisoftware
+capacitydb.aisoftware
