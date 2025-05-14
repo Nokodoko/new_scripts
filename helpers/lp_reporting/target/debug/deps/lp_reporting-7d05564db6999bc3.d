@@ -1,0 +1,5 @@
+/home/n0ko/capacity/repos/helpers/lp_reporting/target/debug/deps/lp_reporting-7d05564db6999bc3.rmeta: src/main.rs
+
+/home/n0ko/capacity/repos/helpers/lp_reporting/target/debug/deps/lp_reporting-7d05564db6999bc3.d: src/main.rs
+
+src/main.rs:

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+SPCHAR="$(echo '!@#$%^&*()_=+-' | fold -w1 | shuf | head -c1 )"
+PASS="$(date +%s%N | md5sum | cut -c1-18| head -c32)$(echo "B")"
+
+echo ${SPCHAR}${PASS}${SPCHAR}|xclip -sel c
